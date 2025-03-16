@@ -1,1 +1,6 @@
 rootProject.name = 'auth-server'
+include 'auth-common'
+include 'auth-core'
+include 'auth-api:auth-api-common'
+include 'auth-api:auth-api-master'
+
