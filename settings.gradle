@@ -3,4 +3,5 @@ include 'auth-common'
 include 'auth-core'
 include 'auth-api:auth-api-common'
 include 'auth-api:auth-api-master'
+include 'auth-client:redisson'
 
