@@ -4,6 +4,8 @@ import com.auth.api.common.application.dto.TokenDto;
 import com.auth.api.master.config.property.JwtProperties;
 import com.auth.api.master.service.impl.CustomUserDetailsService;
 import com.auth.client.redisson.service.RedissonClientService;
+import com.auth.core.domain.CustomUserDetails;
+import com.auth.core.domain.UserEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -31,9 +33,13 @@ public class JwtTokenProvider {
                 .map(GrantedAuthority::getAuthority)
                 .toList();
 
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        UserEntity user = userDetails.getUser();
+
         return Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim("roles", authorities)
+                .claim("status", user.getStatus())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + jwtProperties.getAccessExpirationTime()))
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecret())
@@ -67,17 +73,6 @@ public class JwtTokenProvider {
         }
 
         return null;
-    }
-
-
-    // 사용자명 추출
-    public String getUsernameFromToken(String token) {
-        return getClaims(token).getSubject();
-    }
-
-    // 역할(Role) 추출
-    public List<String> getRolesFromToken(String token) {
-        return (List<String>) getClaims(token).get("roles");
     }
 
     // Claims 추출

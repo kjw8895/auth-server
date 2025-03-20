@@ -6,14 +6,13 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -22,7 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
     private final JwtTokenProvider jwtTokenProvider;
 
-    private final String[] allowedUrls = {"/", "/swagger-ui/**", "/v3/**", "/login", "/callback", "/oauth2/**", "/public/**"};
+    private final String[] allowedUrls = {"/", "/swagger-ui/**", "/login", "/callback", "/oauth2/**", "/public/**"};
 
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http, AuthenticationConfiguration authenticationConfiguration) throws Exception {
@@ -31,9 +30,9 @@ public class SecurityConfig {
                         .requestMatchers(allowedUrls).permitAll()
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(new JwtTokenFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
-                .addFilter(new JwtAuthenticationFilter(authenticationManager(authenticationConfiguration), jwtTokenProvider))
-                .formLogin(Customizer.withDefaults());
+//                .addFilterBefore(new JwtTokenFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
+//                .addFilter(new JwtAuthenticationFilter(authenticationManager(authenticationConfiguration), jwtTokenProvider))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         return http.build();
     }

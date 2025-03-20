@@ -1,5 +1,6 @@
 package com.auth.core.domain;
 
+import com.auth.common.code.UserStatus;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -22,6 +23,10 @@ public class UserEntity {
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private UserStatus status;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<UserRoleEntity> roles;

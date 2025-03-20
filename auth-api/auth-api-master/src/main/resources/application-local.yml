@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 6100
 
 spring:
   config:
@@ -16,6 +16,3 @@ jwt:
 redisson:
   host: redis://localhost:6379
 
-logging:
-  level:
-    org.springframework.security: DEBUG
