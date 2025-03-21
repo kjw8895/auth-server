@@ -38,8 +38,10 @@ public class JwtTokenProvider {
 
         return Jwts.builder()
                 .setSubject(authentication.getName())
-                .claim("roles", authorities)
+                .claim("email", user.getEmail())
+                .claim("id", user.getId())
                 .claim("status", user.getStatus())
+                .claim("roles", authorities)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + jwtProperties.getAccessExpirationTime()))
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecret())
