@@ -21,7 +21,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
     private final JwtTokenProvider jwtTokenProvider;
 
-    private final String[] allowedUrls = {"/", "/swagger-ui/**", "/login", "/callback", "/oauth2/**", "/public/**"};
+    private final String[] allowedUrls = {"/", "/swagger-ui/**", "/sign-in", "/callback", "/oauth2/**", "/public/**"};
 
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http, AuthenticationConfiguration authenticationConfiguration) throws Exception {

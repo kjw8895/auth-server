@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
     private final AuthFacade facade;
 
-    @PostMapping(value = "/login")
+    @PostMapping(value = "/sign-in")
     public ResponseEntity<CommonResponse<TokenDto>> signIn(@RequestBody LoginRequest request) {
         TokenDto dto = facade.login(request);
         return CommonResponse.ok(dto);
