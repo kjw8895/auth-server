@@ -2,7 +2,7 @@ package com.auth.api.master.controller;
 
 import com.auth.api.common.application.dto.TokenDto;
 import com.auth.api.master.application.dto.LoginRequest;
-import com.auth.api.master.facade.impl.AuthFacade;
+import com.auth.api.master.facade.AuthFacade;
 import com.auth.common.response.CommonResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

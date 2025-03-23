@@ -13,6 +13,10 @@ jwt:
   access-expiration-time: 43200000    # 12시간
   refresh-expiration-time: 259200000   # 7일
 
+auth:
+  code-expiration-time: 180000 # 3분
+  verity-expiration-time: 3600000 # 1시간
+
 redisson:
   host: redis://localhost:6379
 

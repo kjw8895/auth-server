@@ -3,6 +3,7 @@ package com.auth.api.master.facade.impl;
 import com.auth.api.common.application.dto.TokenDto;
 import com.auth.api.master.application.dto.LoginRequest;
 import com.auth.api.master.config.JwtTokenProvider;
+import com.auth.api.master.facade.AuthFacade;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,7 +21,7 @@ public class AuthFacadeImpl implements AuthFacade {
     @Override
     public TokenDto login(LoginRequest request) {
         // Security 인증
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.email(), request.password()));
         // Business logic
 
         return jwtTokenProvider.storeToken(authentication);

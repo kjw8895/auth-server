@@ -16,7 +16,8 @@ public enum CommonExceptionCode implements ExceptionCodeEnum {
     DATABASE_EXECUTE_ERROR(1008, "Database execute error", HttpStatus.INTERNAL_SERVER_ERROR),
     INVALID_API_KEY(1009, "Invalid api key", HttpStatus.BAD_REQUEST),
     MISSING_API_KEY(1010, "Api key is required", HttpStatus.BAD_REQUEST),
-    CLIENT_NOT_FOUND(1011, "not found client", HttpStatus.BAD_REQUEST);
+    CLIENT_NOT_FOUND(1011, "not found client", HttpStatus.BAD_REQUEST),
+    VERIFICATION_CODE_NOT_FOUND(1012, "Verification code not found", HttpStatus.BAD_REQUEST);
 
     private int code;
     private String msg;

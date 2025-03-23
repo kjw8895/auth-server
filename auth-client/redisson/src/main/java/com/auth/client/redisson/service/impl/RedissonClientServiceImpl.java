@@ -21,4 +21,9 @@ public class RedissonClientServiceImpl implements RedissonClientService {
     public void put(String key, Object value, Long expirationTime) {
         redissonClient.getBucket(key).set(value, expirationTime, TimeUnit.MILLISECONDS);
     }
+
+    @Override
+    public void delete(String key) {
+        redissonClient.getBucket(key).delete();
+    }
 }

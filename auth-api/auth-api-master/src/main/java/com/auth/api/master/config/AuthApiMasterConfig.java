@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Import;
 @Import({AuthCoreConfig.class, WebMvcConfig.class, RedissonConfig.class})
 @ComponentScan(value = {
         "com.auth.client.redisson",
+        "com.auth.api.common"
 })
 public class AuthApiMasterConfig {
 }
