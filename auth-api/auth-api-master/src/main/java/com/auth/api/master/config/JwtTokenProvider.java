@@ -4,6 +4,7 @@ import com.auth.api.common.application.dto.TokenDto;
 import com.auth.api.master.config.property.JwtProperties;
 import com.auth.api.master.service.impl.CustomUserDetailsService;
 import com.auth.client.redisson.service.RedissonClientService;
+import com.auth.common.utils.ObjectMapperUtils;
 import com.auth.core.domain.CustomUserDetails;
 import com.auth.core.domain.UserEntity;
 import io.jsonwebtoken.Claims;
@@ -60,7 +61,7 @@ public class JwtTokenProvider {
         String accessToken = generateAccessToken(authentication);
         String refreshToken = generateRefreshToken(authentication);
         TokenDto tokenDto = new TokenDto(accessToken, refreshToken);
-        redissonClientService.put(authentication.getName(), tokenDto, jwtProperties.getRefreshExpirationTime());
+        redissonClientService.put(authentication.getName(), ObjectMapperUtils.readValue(tokenDto.toString(), TokenDto.class), jwtProperties.getRefreshExpirationTime());
 
         return tokenDto;
     }
