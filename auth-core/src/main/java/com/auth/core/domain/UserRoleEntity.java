@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "USER_ROLE")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class UserRoleEntity {
+public class UserRoleEntity extends BaseEntity {
     @EmbeddedId
     private UserRoleId id;
 

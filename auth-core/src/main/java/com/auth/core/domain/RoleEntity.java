@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "ROLE")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class RoleEntity {
+public class RoleEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

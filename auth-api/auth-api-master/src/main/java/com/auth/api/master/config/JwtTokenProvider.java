@@ -61,7 +61,7 @@ public class JwtTokenProvider {
         String accessToken = generateAccessToken(authentication);
         String refreshToken = generateRefreshToken(authentication);
         TokenDto tokenDto = new TokenDto(accessToken, refreshToken);
-        redissonClientService.put(authentication.getName(), ObjectMapperUtils.readValue(tokenDto.toString(), TokenDto.class), jwtProperties.getRefreshExpirationTime());
+        redissonClientService.put(authentication.getName(), ObjectMapperUtils.writeValueAsString(tokenDto), jwtProperties.getRefreshExpirationTime());
 
         return tokenDto;
     }
@@ -78,21 +78,8 @@ public class JwtTokenProvider {
         return null;
     }
 
-    // Claims 추출
-    public Claims getClaims(String token) {
-        return Jwts.parserBuilder().setSigningKey(jwtProperties.getSecret()).build().parseClaimsJws(token).getBody();
-    }
-
-    // JWT 토큰 유효성 검사
-    public boolean validateToken(String token) {
-        try {
-            Claims claims = Jwts.parser()
-                    .setSigningKey(jwtProperties.getSecret())
-                    .parseClaimsJws(token)
-                    .getBody();
-            return !claims.getExpiration().before(new Date());
-        } catch (Exception e) {
-            return false;
-        }
+    public UserEntity getUserByAuthentication(Authentication authentication) {
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        return userDetails.getUser();
     }
 }
